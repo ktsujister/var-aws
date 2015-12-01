@@ -1,2 +1,2 @@
 all:
-	cd .. ; dpkg-deb --build var-aws ; mv var-aws.deb var-aws/
+	cd .. ; dpkg-deb --build var-aws ; cd - ; mv ../var-aws.deb .
