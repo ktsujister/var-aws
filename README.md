@@ -16,5 +16,5 @@ Is a Debian package which copies AWS EC2 instance metadata to the filesystem (/v
 - /var/log/termination-time
 
 ## For further details regarding instance metadata
-http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#instancedata-data-categories
 
