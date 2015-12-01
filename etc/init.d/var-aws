@@ -1,0 +1,38 @@
+#! /bin/sh
+# /etc/init.d/var-aws
+VAR_AWS="/var/aws"
+
+touch /var/lock/var-aws
+
+mkdir -p $VAR_AWS
+
+# Create awslogs file for other packages to write to
+touch $VAR_AWS/awslogs-config
+
+case "$1" in
+    start)
+	echo "Copying AWS metadata to $VAR_AWS"
+	curl -f http://169.254.169.254/latest/user-data                             > $VAR_AWS/user-data         2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/ami-id                      > $VAR_AWS/ami-id            2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/ami-launch-index            > $VAR_AWS/ami-launch-index  2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/instance-id                 > $VAR_AWS/instance-id       2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/instance-type               > $VAR_AWS/instance-type     2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/public-hostname             > $VAR_AWS/public-hostname   2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/public-ipv4                 > $VAR_AWS/public-ipv4       2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/local-hostname              > $VAR_AWS/local-hostname    2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/local-ipv4                  > $VAR_AWS/local-ipv4        2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/placement/availability-zone > $VAR_AWS/availability-zone 2> /dev/null
+	cat  $VAR_AWS/availability-zone | egrep -o '^[a-z]+\-[a-z]+\-[0-9]'         > $VAR_AWS/region            2> /dev/null
+	curl -f http://169.254.169.254/latest/meta-data/spot/termination-time       > $VAR_AWS/termination-time  2> /dev/null
+    ;;
+    stop)
+	echo "var-aws doesn't do anything on stop currently"
+    ;;
+    *)
+	echo "Usage: /etc/init.d/var-aws {start|stop}"
+	exit 1
+    ;;
+esac
+
+exit 0
+

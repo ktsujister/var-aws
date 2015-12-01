@@ -1,0 +1,12 @@
+Package: var-aws
+Version: 1.0-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: curl (>= 7.20.0)
+Maintainer: Alan Busby <abusby@gracenote.com>
+Description: /var/aws
+ Sets up a script to launch at boot time to grab AWS instance
+ metadata from http://169.254.169.254/latest/meta-data/ and
+ copy it to multiple files in /var/aws/.
+ Ex. Instance ID in /var/aws/instance-id

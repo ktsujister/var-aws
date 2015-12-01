@@ -1,0 +1,5 @@
+#!/bin/sh
+# postinst script for vac-aws
+
+# Have var-aws start on boot
+update-rc.d var-aws defaults 15
