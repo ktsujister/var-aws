@@ -1,2 +1,2 @@
 all:
-	dpkg-deb --build var-aws
+	dpkg-deb --build var-aws .
